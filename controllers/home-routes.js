@@ -1,5 +1,5 @@
 const router = require('express').Router();
-// const {} = require('../models');
+const { Post, Comment, User } = require('../models');
 
 // GET all blogposts for homepage
 /*
@@ -11,24 +11,25 @@ navigation links for the homepage and the dashboard (nav-bar);
 and the option to log in (nav-bar);
 */
 
-/*
+
 router.get('/', async(req,res)=>{
     try{
         const blogPostData = await Post.findAll({
             include: [
                 {
-                    model: ,
-                    attribute:['',''],
+                    model: User,
                 },
             ]
         });
-    }
+        const posts = blogPostData.map((post)=> post.get({plain : true }))
+        res.render("homepage", { posts })
+    } catch (err) { res.status (400).json(err.message)}
 });
 
-    const posts = blogPostData.map(()=>)
+    module.exports = router;
 
 
-*/
+
 
 
 

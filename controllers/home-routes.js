@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Post, Comment, User } = require('../models');
 
-// GET all blogposts for homepage
+
 /*
 WHEN I visit the site for the first time
 THEN I am presented with the homepage, 
@@ -11,7 +11,7 @@ navigation links for the homepage and the dashboard (nav-bar);
 and the option to log in (nav-bar);
 */
 
-
+// GET all blogposts for homepage
 router.get('/', async(req,res)=>{
     try{
         const blogPostData = await Post.findAll({
@@ -21,10 +21,28 @@ router.get('/', async(req,res)=>{
                 },
             ]
         });
+        // serialize the data
         const posts = blogPostData.map((post)=> post.get({plain : true }))
+         // Pass serialized data and session flag into template
         res.render("homepage", { posts })
     } catch (err) { res.status (400).json(err.message)}
 });
+
+// GET ID
+
+// router.get('/post/:id', async (req, res) =>{
+//     try{
+//         const blogPostData = await Post.findOne ({
+//             include: [
+//                 {
+//                 model: User,
+//                 }
+//             ]
+//         });
+//         const 
+//     }
+// })
+
 
     module.exports = router;
 

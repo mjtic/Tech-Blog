@@ -30,18 +30,22 @@ router.get('/', async(req,res)=>{
 
 // GET ID
 
-// router.get('/post/:id', async (req, res) =>{
-//     try{
-//         const blogPostData = await Post.findOne ({
-//             include: [
-//                 {
-//                 model: User,
-//                 }
-//             ]
-//         });
-//         const 
-//     }
-// })
+router.get('/post/:id', async (req, res) =>{
+    try{
+        const blogPostData = await Post.findOne ({
+            include: [
+                {
+                model: Comment,
+                }
+            ]
+        });
+       // serialize the data
+       const posts = blogPostData.map((post)=> post.get({plain : true }))
+       // Pass serialized data and session flag into template
+      res.render("homepage", { posts })
+  } catch (err) { res.status (400).json(err.message)}
+});
+
 
 // SIGN UP
 router.get('/signup', async(req,res)=>{

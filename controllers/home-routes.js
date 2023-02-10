@@ -1,6 +1,5 @@
-const router = require('express').Router();
-const { Post, Comment, User } = require('../models');
-
+const router = require("express").Router();
+const { Post, Comment, User } = require("../models");
 
 /*
 WHEN I visit the site for the first time
@@ -12,71 +11,67 @@ and the option to log in (nav-bar);
 */
 
 // GET all blogposts for homepage
-router.get('/', async(req,res)=>{
-    try{
-        const blogPostData = await Post.findAll({
-            include: [
-                {
-                    model: User,
-                },
-            ]
-        });
-        // serialize the data
-        const posts = blogPostData.map((post)=> post.get({plain : true }))
-         // Pass serialized data and session flag into template
-        res.render("homepage", { posts })
-    } catch (err) { res.status (400).json(err.message)}
+router.get("/", async (req, res) => {
+  try {
+    const blogPostData = await Post.findAll({
+      include: [
+        {
+          model: User,
+        },
+      ],
+    });
+    // serialize the data
+    const posts = blogPostData.map((post) => post.get({ plain: true }));
+    // Pass serialized data and session flag into template
+    res.render("homepage", { posts });
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
 });
 
 // GET ID
-
-router.get('/post/:id', async (req, res) =>{
-    try{
-        const blogPostData = await Post.findOne ({
-            include: [
-                {
-                model: Comment,
-                }
-            ]
-        });
-       // serialize the data
-       const posts = blogPostData.map((post)=> post.get({plain : true }))
-       // Pass serialized data and session flag into template
-      res.render("homepage", { posts })
-  } catch (err) { res.status (400).json(err.message)}
+//*** res.render needs single view page (handlebar)***//
+router.get("/post/:id", async (req, res) => {
+  try {
+    const blogPostData = await Post.findOne({
+      where: { id: req.params.id },
+      include: [
+        {
+          model: [Comment, User],
+        },
+      ],
+    });
+    // serialize the data
+    const posts = blogPostData.map((post) => post.get({ plain: true }));
+    // Pass serialized data and session flag into template
+    res.render("homepage", { posts });
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
 });
 
-
 // SIGN UP
-router.get('/signup', async(req,res)=>{
-  if (req.session.logged_in){
-    res.redirect('/dashboard')
+router.get("/signup", async (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect("/dashboard");
     return;
   }
-    // Pass serialized data and session flag into template
-    res.render("signup")
-    return;
-    } 
-);
+  // Pass serialized data and session flag into template
+  res.render("signup");
+  return;
+});
 
 // LOG IN
-router.get('/login', async(req,res)=>{
-    if (req.session.logged_in){
-      res.redirect('/dashboard')
-      return;
-    }
-      // Pass serialized data and session flag into template
-      res.render("login")
-      return;
-      } 
-  );
-    module.exports = router;
-
-
-
-
-
-
+router.get("/login", async (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect("/dashboard");
+    return;
+  }
+  // Pass serialized data and session flag into template
+  res.render("login");
+  return;
+});
+module.exports = router;
 
 /*
 Class note:

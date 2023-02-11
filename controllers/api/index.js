@@ -6,13 +6,13 @@ const router = require('express').Router();
 const usersRoutes = require('./usersRoutes');
 // create blog posts and deletes
 const postsRoutes = require('./postsRoutes');
-// // create comments to existing posts
-// const commentsRoutes = require('./comments-routes')
+// create comments to existing posts
+const commentsRoutes = require('./commentsRoutes')
 
 
 router.use('/users', usersRoutes);
 router.use('/post', postsRoutes);
-// router.use('/comments', commentsRoutes);
+router.use('/comments', commentsRoutes);
 
 module.exports = router;
 

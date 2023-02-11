@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Post, Comment, User } = require("../models");
+const withAuth = require("../utils/auth");
 
 /*
 WHEN I visit the site for the first time
@@ -31,7 +32,7 @@ router.get("/", async (req, res) => {
 
 // GET ID
 //*** res.render needs single view page (handlebar)***//
-router.get("/post/:id", async (req, res) => {
+router.get("/post/:id", withAuth, async (req, res) => {
   try {
     const blogPostData = await Post.findOne({
       where: { id: req.params.id },
@@ -44,7 +45,7 @@ router.get("/post/:id", async (req, res) => {
     // serialize the data
     const posts = blogPostData.map((post) => post.get({ plain: true }));
     // Pass serialized data and session flag into template
-    res.render("homepage", { posts });
+    res.render("homepage", { posts, logged_in: req.session.logged_in });
   } catch (err) {
     res.status(400).json(err.message);
   }
@@ -58,7 +59,7 @@ router.get("/signup", async (req, res) => {
   }
   // Pass serialized data and session flag into template
   res.render("signup");
-  return;
+
 });
 
 // LOG IN

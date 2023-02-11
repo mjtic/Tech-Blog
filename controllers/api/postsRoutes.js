@@ -4,7 +4,7 @@ const withAuth = require("../../utils/auth");
 
 
 /*******DO NOT forget to add withAuth back in once ready */
-router.post("/",  async (req, res) => {
+router.post("/", withAuth, async (req, res) => {
   try {
     const newPost = await Post.create({
       ...req.body,

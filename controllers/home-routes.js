@@ -38,7 +38,8 @@ router.get("/post/:id", withAuth, async (req, res) => {
       where: { id: req.params.id },
       include: [
         {
-          model: [Comment, User],
+          model: Comment, 
+            include: [User]
         },
       ],
     });

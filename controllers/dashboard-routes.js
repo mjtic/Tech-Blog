@@ -21,4 +21,31 @@ router.get("/", withAuth, async (req, res) => {
   }
 });
 
+// AFTER CLICK ON NEW POST BUTTON
+router.get('/new', withAuth, (req, res) => {
+
+  res.render('new');
+});
+
+// WHEN WE CLICK ON THE POST ITSELF
+router.get('/edit/:id', withAuth, async (req, res) => {
+  try {
+
+    const postData = await Post.findByPk(req.params.id);
+
+    if (postData) {
+      // serializing the data
+      const post = postData.get({ plain: true });
+      console.log(post);
+
+      res.render('edit')
+    } else {
+      res.status(404).end();
+    }
+  } catch (err) {
+    res.redirect('login');
+  }
+});
+
+
 module.exports = router;

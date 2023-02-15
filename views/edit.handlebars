@@ -4,11 +4,15 @@
     <p>{{content}}</p>
   <p>Created by {{user.username}} on {{format_date createdAt}}</p>
   <p>
-    <span for="img" aria-label="money">💲</span>
-    <span class="dollar-amount">{{format_amount needed_funding}}</span>
-    needed
+    
+    <span class="form-textarea form-input">{{post.content}}</span>
+   
   </p>
-  <p>
-    <button class="btn btn-primary">Fund this Project!</button>
-  </p>
+    <button class="btn btn-primary" type="submit">EDIT</button>
+    <input type="hidden" name="post-id" value="{{post.id}}"/>
+  </form>
+  <div class="card-body">
+   <button class="btn btn-primary" type="submit" id="delete-btn">DELETE</button>
+  </div> 
 </div>
+<script src="/js/edit.js"></script>

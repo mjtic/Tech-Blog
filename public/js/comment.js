@@ -1,25 +1,29 @@
-const newFormHandler = async (event) => {
-    event.preventDefault();
-  
-    const content = document.querySelector('#content').value.trim();
-  
-    if ( content ) {
-      const response = await fetch(`/api/comments`, {
-        method: 'POST',
-        body: JSON.stringify({ content }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (response.ok) {
-        document.location.reload();
-      } else {
-        alert('Failed to create comment');
-      }
-    }
-  };
+const commentFormHandler = async (event) => {
+  event.preventDefault();
 
-  document
-  .querySelector('.content')
-  .addEventListener('submit', newFormHandler);
+  console.log("comment JS is WORKING!!!");
+
+  const content = document.querySelector("#content").value.trim();
+  console.log(content);
+
+  if (content) {
+    const response = await fetch("/api/comments", {
+      method: "POST",
+      body: JSON.stringify({ content }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      console.log(response);
+      document.location.reload();
+    } else {
+      alert(response.statusText);
+    }
+  }
+};
+
+document
+  .querySelector(".content")
+  .addEventListener("submit", commentFormHandler);

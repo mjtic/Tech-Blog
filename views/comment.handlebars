@@ -1,21 +1,22 @@
 {{!-- single post view --}}
 <div class="text-center">
-  <h2>{{title}}</h2>
-    <p>{{content}}</p>
-  <p>Created by {{user.username}} on {{format_date createdAt}}</p>
+  <h2>{{posts.title}}</h2>
+    <p>{{posts.content}}</p>
+  <p>Created by {{posts.user.username}} on {{format_date posts.createdAt}} </p>
+
   <p>
     <button class="btn btn-primary"> + Comment </button>
   </p>
 </div>
 
-  {{#if comments.length}}
+  {{#if posts.comments.length}}
   <div class="col-md-6 project-list">
     <h3>Current comment:</h3>
 
-    {{#each comments as |comment|}}
+    {{#each posts.comments as |comment|}}
     <div class="row mb-2">
       <div class="col-md-8">
-       <p>{{content}}</p>
+       <p>{{comment}}</p>
       </div>
     </div>
     {{/each}}
@@ -43,4 +44,4 @@
 
 
 
-<script src="./js/comment.js"></script>
+<script src="/js/comment.js"></script>

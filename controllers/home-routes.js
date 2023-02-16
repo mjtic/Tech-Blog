@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Post, Comment, User } = require("../models");
 const withAuth = require("../utils/auth");
-
+const Sequelize = require("sequelize");
 /*
 WHEN I visit the site for the first time
 THEN I am presented with the homepage, 
@@ -22,9 +22,11 @@ router.get("/", async (req, res) => {
       ],
     });
     // serialize the data
-    const posts = blogPostData.map((post) => post.get({ plain: true }));
+    
+    const posts = blogPostData.map((post) => post.get({ plain: true }))
+    // console.log(posts);
     // Pass serialized data and session flag into template
-    res.render("homepage", { posts });
+    res.render("homepage", { posts, logged_in: req.session.logged_in });
   } catch (err) {
     res.status(400).json(err.message);
   }
@@ -37,16 +39,20 @@ router.get("/post/:id", withAuth, async (req, res) => {
     const blogPostData = await Post.findOne({
       where: { id: req.params.id },
       include: [
+        User,
         {
           model: Comment, 
             include: [User]
         },
       ],
     });
+    // console.log(blogPostData.post.dataValues);
     // serialize the data
-    const posts = blogPostData.map((post) => post.get({ plain: true }));
+    const posts = blogPostData.get({ plain: true });
+    console.log(posts);
     // Pass serialized data and session flag into template
-    res.render("homepage", { posts, logged_in: req.session.logged_in });
+    res.render("comment", { posts, logged_in: req.session.logged_in });
+
   } catch (err) {
     res.status(400).json(err.message);
   }
@@ -74,6 +80,7 @@ router.get("/login", async (req, res) => {
   return;
 });
 module.exports = router;
+
 
 /*
 Class note:

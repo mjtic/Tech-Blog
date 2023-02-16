@@ -1,7 +1,5 @@
 const router = require('express').Router();
 
-
-
 // create new users, sign-in, sign-out
 const usersRoutes = require('./usersRoutes');
 // create blog posts and deletes

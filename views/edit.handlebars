@@ -1,8 +1,8 @@
 {{!-- single post view --}}
 <div class="text-center">
-  <h2>{{title}}</h2>
-    <p>{{content}}</p>
-  <p>Created by {{user.username}} on {{format_date createdAt}}</p>
+  <h2>{{posts.title}}</h2>
+    <p>{{posts.content}}</p>
+  <p>Created by {{posts.user.username}} on {{format_date posts.createdAt}}</p>
   <p>
     
     <span class="form-textarea form-input">{{posts.content}}</span>

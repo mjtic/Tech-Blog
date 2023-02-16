@@ -11,6 +11,20 @@ Comment.init(
     primaryKey: true,
     autoIncrement: true,
     },
+    post_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'post',
+        key: 'id',
+      }
+      },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id',
+      }
+    },
     content: {
       type: DataTypes.TEXT,
       //similar to string yet text is really long characters in length

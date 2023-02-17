@@ -1,25 +1,3 @@
-{{!-- single post view
-<div class="text-center">
-  <h2>{{posts.title}}</h2>
-    <p>{{posts.content}}</p>
-  <p>Created by {{posts.user.username}} on {{format_date posts.createdAt}}</p>
-  <p>
-    
-    <span class="form-textarea form-input">{{posts.content}}</span>
-   
-  </p>
-    <button class="btn btn-primary" type="submit">EDIT</button>
-    <input type="hidden" name="post-id" value="{{posts.id}}"/>
-  </form>
-  <div class="card-body">
-   <button class="btn btn-primary" type="submit" id="delete-btn">DELETE</button>
-  </div> 
-</div>
-<script src="/js/edit.js"></script>
- --}}
-
-
-
 <div class="card">
     <h3 class="card-header">Edit Post</h3>
     <form class="card-body edit-post-form">
@@ -28,7 +6,7 @@
         <label class="form-label" for="content">Content</label>
         <input name="content" type="text" value="{{posts.content}}" class="form-input" />
         <button type="submit" class="btn">Update Post</button>
-        <button type="button" class="delete-post-btn btn">Delete Post</button>
+        <button type="submit" class="delete-post-btn btn">Delete Post</button>
     </form>
 </div>
 

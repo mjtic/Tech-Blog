@@ -1,15 +1,5 @@
 const router = require("express").Router();
 const { Post, Comment, User } = require("../models");
-const withAuth = require("../utils/auth");
-
-/*
-WHEN I visit the site for the first time
-THEN I am presented with the homepage, 
-which includes existing blog posts if any have been posted;
-
-navigation links for the homepage and the dashboard (nav-bar);
-and the option to log in (nav-bar);
-*/
 
 // GET all blogposts for homepage
 router.get('/', (req, res) => {
@@ -140,21 +130,6 @@ router.get('/posts-comments', (req, res) => {
       });
 });
 
-
-
-
-
-
 module.exports = router;
 
 
-/*
-Class note:
-
-controllers
-    index.js - connects
-    home-routes - router.get
-        api 
-            index.js - connects
-            -routes - router.post/delete 
-*/

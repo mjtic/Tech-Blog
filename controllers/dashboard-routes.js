@@ -4,48 +4,87 @@ const withAuth = require("../utils/auth");
 
 
 //don't forget to add withAuth back later//
-
-router.get("/", withAuth, async (req, res) => {
-  try {
-    const blogPostData = await Post.findAll({
-      where: { user_id: req.session.user_id },
-      include: [User],
-    });
-    // serialize the data
-    const posts = blogPostData.map((post) => post.get({ plain: true }));
-    console.log(posts);
-    // Pass serialized data and session flag into template
-    res.render("dashboard", { posts, logged_in: req.session.logged_in });
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
+router.get('/', withAuth, (req, res) => {
+  Post.findAll({
+          where: {
+              user_id: req.session.user_id
+          },
+          attributes: [
+              'id',
+              'title',
+              'content',
+              'created_at'
+          ],
+          include: [{
+                  model: Comment,
+                  attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                  include: {
+                      model: User,
+                      attributes: ['username']
+                  }
+              },
+              {
+                  model: User,
+                  attributes: ['username']
+              }
+          ]
+      })
+      .then(dbPostData => {
+          const posts = dbPostData.map(post => post.get({ plain: true }));
+          res.render('dashboard', { posts, loggedIn: true });
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+      });
 });
+
 
 // AFTER CLICK ON NEW POST BUTTON
-router.get('/new', withAuth, (req, res) => {
-
-  res.render('new');
+router.get('/new', (req, res) => {
+  res.render('new-post');
 });
+
 
 // WHEN WE CLICK ON THE POST ITSELF
-router.get('/edit/:id', withAuth, async (req, res) => {
-  try {
+router.get('/edit/:id', withAuth, (req, res) => {
+  Post.findOne({
+          where: {
+              id: req.params.id
+          },
+          attributes: ['id',
+              'title',
+              'content',
+              'created_at'
+          ],
+          include: [{
+                  model: User,
+                  attributes: ['username']
+              },
+              {
+                  model: Comment,
+                  attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                  include: {
+                      model: User,
+                      attributes: ['username']
+                  }
+              }
+          ]
+      })
+      .then(dbPostData => {
+          if (!dbPostData) {
+              res.status(404).json({ message: 'No post found with this id' });
+              return;
+          }
 
-    const postData = await Post.findByPk(req.params.id);
-
-    if (postData) {
-      // serializing the data
-      const post = postData.get({ plain: true });
-      console.log(post);
-
-      res.render('edit', {post})
-    } else {
-      res.status(404).end();
-    }
-  } catch (err) {
-    res.redirect('login');
-  }
-});
+          const post = dbPostData.get({ plain: true });
+          res.render('edit-post', { post, loggedIn: true });
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+      });
+})
 
 
 module.exports = router;

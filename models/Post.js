@@ -20,10 +20,16 @@ Post.init(
       //similar to string yet text is really long characters in length
       allowNull: false,
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
+    }
   },
   {
     sequelize,
-    // timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'post',

@@ -2,7 +2,7 @@
   const signupFormHandler = async (event) => {
     event.preventDefault();
   
-    const username = document.querySelector('#name-signup').value.trim();
+    const username = document.querySelector('#username-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
   
     if (username && password) {
@@ -15,11 +15,11 @@
       if (response.ok) {
         document.location.replace('/dashboard');
       } else {
-        alert('failed to sign up');
+        alert(response.statusText);
       }
     }
   };
 
   document
-  .querySelector('.signup-form')
+  .querySelector('#signup-form')
   .addEventListener('submit', signupFormHandler);

@@ -15,21 +15,12 @@
   * [License](#license)
   * [Questions](#questions)
 
-  ## Installation
-    ### Required tools:
-    * VS code 
-    * Any type of terminal (ex. GitBash)
-    * npm
+  ## Technology
     * Node.js
     * MySQL2
     * Sequelize
-    * Insomnia
-
-    ### Steps:
-    1. Clone with SSH
-    2. Install NodeJS and the below npm packages:
-    * npm i init -y
-    * npm i
+    * Handlebars
+    * NPM Packages:
     * npm i bcrypt
     * npm i connect-session-sequelize
     * npm i dotenv
@@ -40,20 +31,20 @@
     * npm i inquirer
     * npm i mysql2
     * npm i sequelize
-
-  ## Usage
-  (GitHub: https://github.com/mjtic/Tech-Blog)
-
-
+  
   ## Contribution
-
-  ## Test
-  npm start
-  insomnia
+  https://developer.mozilla.org/en-US/docs/Glossary/MVC <br>
+  https://zetcode.com/javascript/sequelize/<br>
+  https://handlebarsjs.com/<br>
+  https://coding-boot-camp.github.io/full-stack/heroku/deploy-with-heroku-and-mysql<br>
+  https://expressjs.com/en/guide/writing-middleware.html<br>
+  ## Test Tools
+  Insomnia
   MySQL Workbench
 
   ## Websites
-
+  GitHub: https://github.com/mjtic/Tech-Blog <br>
+  Deployed: https://post-techblog.herokuapp.com/<br>
   ## License
   This project is under MIT License, for more information please refer to the license badge on top of this README
   ## Questions
